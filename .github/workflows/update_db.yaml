@@ -23,7 +23,6 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
-        working-directory: scripts/update_db_from_gate
 
       - name: Install the project
         working-directory: scripts/update_db_from_gate
