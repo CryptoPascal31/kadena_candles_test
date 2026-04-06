@@ -1,0 +1,10 @@
+[project]
+name = "update-db-from-gate"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiohttp>=3.13.5",
+    "cbor2>=5.9.0",
+]

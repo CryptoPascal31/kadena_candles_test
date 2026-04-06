@@ -1,0 +1,41 @@
+name: Update Database
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set-up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: 'scripts/update_db_from_gate/.python-version'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        working-directory: scripts/update_db_from_gate
+
+      - name: Install the project
+        working-directory: scripts/update_db_from_gate
+        run: uv sync
+
+
+      - name: Update the database
+        working-directory: scripts/update_db_from_gate
+        run: uv run main.py
+
+      - uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: Update Database
+          commit_options: '--no-verify --signoff'
+          file_pattern: 'db/latest db/*.gz'
